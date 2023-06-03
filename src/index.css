@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "MortyFont";
+    src: url("./assets/get-schwifty.ttf");
+}
+
+html,
+body {
+    font-family: MortyFont;
+}
