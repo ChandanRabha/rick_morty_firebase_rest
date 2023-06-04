@@ -1,11 +1,24 @@
+import { GoogleAuthProvider, User, getAuth, signInWithRedirect } from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { onAuthStateChanged } from 'firebase/auth';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 import IResponseModel, { Result } from './models/IResponseModel';
+import firebaseConfig from "./constants/firebaseConfig";
 
 import './App.css'
 
+console.log(firebaseConfig);
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const provider = new GoogleAuthProvider();
+
 const App = memo(() => {
   const [data, setData] = useState<Result[]>();
+  const [userData, setUserData] = useState<User>();
 
   const [hoveredImage, setHoveredImage] = useState("");
 
@@ -27,6 +40,18 @@ const App = memo(() => {
     }
   }, []);
 
+  useEffect(() => {
+    onAuthStateChanged(auth, user => {
+      if (user === null) {
+        console.log("No user detected")
+        signInWithRedirect(auth, provider);
+      }
+
+      user && setUserData(user);
+
+      console.log(`${user?.displayName} is logged in`)
+    })
+  }, [])
 
   useEffect(() => {
     fetchData();
@@ -57,6 +82,7 @@ const App = memo(() => {
           RICK & MORTY
         </label>
         <label className='dark:text-white'>CHARACTERS</label>
+        <label>Hello {userData?.displayName}</label>
       </div>
       <div className="flex flex-wrap justify-evenly gap-5 ">
         {charactersJsx}

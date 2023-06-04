@@ -1,11 +1,11 @@
 {
-  "homepage":"https://chandanrabha.github.io/rick_morty_firebase_rest/",
+  "homepage": "https://chandanrabha.github.io/rick_morty_firebase_rest/",
   "name": "rick_morty",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 3000",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
@@ -13,6 +13,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "firebase": "^9.22.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
