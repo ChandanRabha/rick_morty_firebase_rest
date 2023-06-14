@@ -1,12 +1,14 @@
 import { GoogleAuthProvider, User, getAuth, signInWithRedirect } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { onAuthStateChanged } from 'firebase/auth';
-import { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { SyntheticEvent, memo, useCallback, useEffect, useMemo, useState } from 'react';
 
-import IResponseModel, { Result } from './models/IResponseModel';
+import ICharacterModel from "./models/ICharacterModel";
+import IResponseModel from './models/IResponseModel';
 import firebaseConfig from "./constants/firebaseConfig";
 
 import './App.css'
+import Card from "./components/common/card/card";
 
 console.log(firebaseConfig);
 
@@ -17,7 +19,7 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 const App = memo(() => {
-  const [data, setData] = useState<Result[]>();
+  const [data, setData] = useState<ICharacterModel[]>();
   const [userData, setUserData] = useState<User>();
 
   const [hoveredImage, setHoveredImage] = useState("");
@@ -53,26 +55,25 @@ const App = memo(() => {
     })
   }, [])
 
+  const handleMouseOver = useCallback((e: SyntheticEvent) => {
+    setHoveredImage(e.target["id" as keyof typeof e.target] as unknown as string)
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setHoveredImage("")
+  }, []);
+
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-  const charactersJsx = useMemo(() => data?.map(eachData =>
-    <div className='drop-shadow-xl gap-2 flex flex-col' key={eachData.id}>
-      <img
-        src={eachData.image}
-        alt={eachData.name}
-        className={`rounded-md transition-opacity duration-300 ${eachData.id.toString() !== hoveredImage && hoveredImage !== "" && "opacity-70"}`}
-        id={eachData.id.toString()}
-        onMouseOver={(e) => setHoveredImage(e.target["id" as keyof typeof e.target] as unknown as string)}
-        onMouseLeave={() => setHoveredImage("")}
-      />
-      <div className='flex flex-col dark:text-white drop-shadow-xl'>
-        <label>{eachData.name}</label>
-        <label>{eachData.species}</label>
-        <label>{eachData.status}</label>
-      </div>
-    </div>), [data, hoveredImage])
+  const charactersJsx = useMemo(() => data?.map(eachData => (
+    <Card
+      {...eachData}
+      onMouseLeave={handleMouseLeave}
+      onMouseOver={handleMouseOver}
+      hoveredImage={hoveredImage} />
+  )), [data, handleMouseLeave, handleMouseOver, hoveredImage])
 
 
   return (
@@ -88,7 +89,6 @@ const App = memo(() => {
         {charactersJsx}
       </div>
     </div>
-
   )
 })
 
