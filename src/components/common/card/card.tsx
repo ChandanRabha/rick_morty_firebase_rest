@@ -11,7 +11,7 @@ const Card = (props: ICardProps) => (
             onMouseLeave={props.onMouseLeave}
             loading="lazy"
         />
-        <div className='flex flex-col dark:text-white drop-shadow-xl'>
+        <div className='flex flex-col text-white drop-shadow-xl'>
             <label>{props.name}</label>
             <label>{props.species}</label>
             <label>{props.status}</label>

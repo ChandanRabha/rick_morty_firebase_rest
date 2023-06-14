@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        mainBG: "url('https://i.pinimg.com/originals/d5/17/3e/d5173e4f45395a3fb2e7acc3eb8745ef.jpg')"
+        mainBG: "linear-gradient(to right,black, #64ee44,black)"
       }
     },
   },

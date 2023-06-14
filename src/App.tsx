@@ -77,12 +77,12 @@ const App = memo(() => {
 
 
   return (
-    <div className='flex flex-col md:flex-row gap-5 p-5 sm:p-10 relative dark:bg-mainBG bg-cover bg-no-repeat bg-fixed'>
+    <div className='flex flex-col md:flex-row gap-5 p-5 sm:p-10 relative bg-mainBG'>
       <div className="text-xl sm:text-5xl text-center w-full sticky md:top-[calc(50%-6rem)] h-fit text-[#64ee44] flex flex-col">
         <label>
           RICK & MORTY
         </label>
-        <label className='dark:text-white'>CHARACTERS</label>
+        <label className='text-white'>CHARACTERS</label>
         <label>Hello {userData?.displayName}</label>
       </div>
       <div className="flex flex-wrap justify-evenly gap-5 ">
