@@ -14,7 +14,7 @@ const Card = (props: ICardProps) => (
         <div className='flex flex-col text-white drop-shadow-xl'>
             <label>{props.name}</label>
             <label>{props.species}</label>
-            <label>{props.status}</label>
+            <label className={props.status==="Alive" ? "text-blue-500" :"text-red-500"}>{props.status}</label>
         </div>
     </div>
 )

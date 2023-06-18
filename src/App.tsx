@@ -77,7 +77,7 @@ const App = memo(() => {
 
 
   return (
-    <div className='flex flex-col md:flex-row gap-5 p-5 sm:p-10 relative bg-mainBG'>
+    <div className='flex flex-col md:flex-row gap-5 p-5 sm:p-10 relative bg-black'>
       <div className="text-xl sm:text-5xl text-center w-full sticky md:top-[calc(50%-6rem)] h-fit text-[#64ee44] flex flex-col">
         <label>
           RICK & MORTY
